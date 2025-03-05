@@ -1,9 +1,6 @@
 import re
 import requests
-import urllib3
 from bs4 import BeautifulSoup
-
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 keywords = ['khcn', 'dh-NTT']
@@ -33,7 +30,7 @@ for base_pre_pre_url in base_pre_pre_urls:
         
     pre_pre_pdf_urls.append(pre_pre_pdf_url)  # Them trang cuoi cung vao list
 
-# print(pre_pre_pdf_urls)
+print(pre_pre_pdf_urls)
 
 pre_pdf_urls = []
 
@@ -60,7 +57,7 @@ for pre_pre_pdf_url in pre_pre_pdf_urls:
         except Exception as e:
             print("Error: ", e)
             
-# print(pre_pdf_urls)
+print(pre_pdf_urls)
 
 count = 0
 for pre_pdf_url in pre_pdf_urls:
@@ -72,22 +69,19 @@ for pre_pdf_url in pre_pdf_urls:
         try:
             keychain = pre_pdf_url.replace('issue', 'article')
             keychain = re.sub(r'/\d+$', '', keychain)
-            # print('***', keychain)
+            print('***', keychain)
             
             if re.match(re.escape(keychain) + r'/\d+/\d+$', url['href']):
                 
                 download_url = url['href'].replace('view', 'download')
-                # print('*****', download_url)
+                print('*****', download_url)
                 pdf_response = requests.get(download_url, verify=False)
-                # print(url['href'])
+                print(url['href'])
                 
                 count += 1
                 file_name = "input" + str(count) + '.pdf'
                 
-                with open('/Users/hoangducanh/Documents/Hoc o HUST/nhom_anh_minh/crawl-abstract-data/pdf/' + file_name, 'wb') as f:
+                with open('./pdf/' + file_name, 'wb') as f:
                     f.write(pdf_response.content)
-                    print("✅ Input {} is written into pdf folder successfully!".format(count))
         except Exception as e:
             print("Error: ", e)
-            
-         
