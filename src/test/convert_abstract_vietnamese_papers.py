@@ -3,11 +3,8 @@ import os
 import re
 
 # Đường dẫn tới thư mục chứa file PDF
-input_folder = "pdf"  # Thay đổi đường dẫn
-output_folder = "result"  # Thư mục lưu file text
-
-# Tạo thư mục đầu ra nếu chưa có
-os.makedirs(output_folder, exist_ok=True)
+input_folder = "/Users/hoangducanh/Documents/Hoc o HUST/nhom_anh_minh/crawl-abstract-data/data/input/"  # Thay đổi đường dẫn
+output_folder = "/Users/hoangducanh/Documents/Hoc o HUST/nhom_anh_minh/crawl-abstract-data/data/output/"  # Thư mục lưu file text
 
 def get_title(page):
     text_blocks = page.get_text("dict")["blocks"]
